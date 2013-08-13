@@ -1,4 +1,0 @@
-PyORMLite
-=========
-
-PyORMLite
