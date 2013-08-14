@@ -4,7 +4,7 @@ with open('README.txt') as readme:
     long_description = readme.read()
 
 setup(name="PyORMLite",
-    version="0.1.0",
+    version="0.0.1",
     description="Lightweight ORM for persisting objects",
     long_description=long_description,
     author="Ernesto Bossi",

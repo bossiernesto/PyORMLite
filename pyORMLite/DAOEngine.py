@@ -3,38 +3,39 @@ from PyORMLiteExecptions import DAOEngineException
 from pyORMLiteSettings import EXECUTOR
 from pyORMLiteMapper import PropertyMappings
 
+
 class DAOEngine(object):
 
-    def __init__(self,mappedClass,tableName,mappings=[]):
+    def __init__(self, mappedClass, tableName, mappings=[]):
         if not inspect.isclass(mappedClass): raise DAOEngineException('{0} is not a valid Class'.format(mappedClass))
-        self.mappedClass=mappedClass
-        self.tableName=tableName
-        self.mappings=mappings
-        self.executor=EXECUTOR()
+        self.mappedClass = mappedClass
+        self.tableName = tableName
+        self.mappings = mappings
+        self.executor = EXECUTOR()
 
-    def update(self,object):
+    def update(self, object):
         pass
 
-    def add(self,object):
-        fieldNames=','.join([mapping.columnName for mapping in self.mappings])
-        questionMarks=','.join(['?' for mapping in self.mappings])
-        values=[mapping.getvalue(object) for mapping in self.mappings]
+    def add(self, object):
+        fieldNames = ','.join([mapping.columnName for mapping in self.mappings])
+        questionMarks = ','.join(['?' for mapping in self.mappings])
+        values = [mapping.getvalue(object) for mapping in self.mappings]
 
-        query = " INSERT INTO {0} ({1}) VALUES ({2});".format(self.tableName,fieldNames,questionMarks)
-        self.executor.update(query,values) #TODO: create an update method in executor
+        query = " INSERT INTO {0} ({1}) VALUES ({2});".format(self.tableName, fieldNames, questionMarks)
+        self.executor.update(query, values) #TODO: create an update method in executor
 
     def findAll(self):
         self.find(filters=[])
 
-    def find(self,filters=[]):
+    def find(self, filters=[]):
 
-        whereClause=""
-        query="SELECT * FROM {0}".format(self.tableName)
+        whereClause = ""
+        query = "SELECT * FROM {0}".format(self.tableName)
 
         if filters:
 
-            whereClause=" and ".join(filter.getConditionString() for filter in filters)
-            query+= " WHERE {0};".format(whereClause)
+            whereClause = " and ".join(filter.getConditionString() for filter in filters)
+            query += " WHERE {0};".format(whereClause)
 
             self.executor.query(query,)#TODO: finish executor, create a RowMapper class that can handle each rowMapping
 
@@ -50,9 +51,9 @@ class DAOEngine(object):
         catch (Exception e) {
         throw new RuntimeException(e);"""
 
-    def addProperty(self,propertyMapping):
-        if not isinstance(propertyMapping,PropertyMappings):
-            raise DAOEngineException('{0} is not an instance of {1}'.format(propertyMapping,PropertyMappings))
+    def addProperty(self, propertyMapping):
+        if not isinstance(propertyMapping, PropertyMappings):
+            raise DAOEngineException('{0} is not an instance of {1}'.format(propertyMapping, PropertyMappings))
         self.mappings.append(propertyMapping)
 
 
