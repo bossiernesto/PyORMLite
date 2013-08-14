@@ -1,5 +1,5 @@
-from abc import ABCMeta,abstractmethod
-from PyORMLiteUtils import wrapDAOException,wrapPyORMException
+from abc import ABCMeta, abstractmethod
+from PyORMLiteUtils import wrapDAOException, wrapPyORMException
 from pyORMLiteSettings import PROPERTY_CONVERTERS
 from datetime import date
 

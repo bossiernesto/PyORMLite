@@ -7,22 +7,23 @@ from pyORMLiteMapper import PropertyMappings
 class DAOEngine(object):
 
     def __init__(self, mappedClass, tableName, mappings=[]):
-        if not inspect.isclass(mappedClass): raise DAOEngineException('{0} is not a valid Class'.format(mappedClass))
+        if not inspect.isclass(mappedClass):
+            raise DAOEngineException('{0} is not a valid Class'.format(mappedClass))
         self.mappedClass = mappedClass
         self.tableName = tableName
         self.mappings = mappings
         self.executor = EXECUTOR()
 
-    def update(self, object):
+    def update(self, instance):
         pass
 
-    def add(self, object):
+    def add(self, instance):
         fieldNames = ','.join([mapping.columnName for mapping in self.mappings])
         questionMarks = ','.join(['?' for mapping in self.mappings])
-        values = [mapping.getvalue(object) for mapping in self.mappings]
+        values = [mapping.getvalue(instance) for mapping in self.mappings]
 
         query = " INSERT INTO {0} ({1}) VALUES ({2});".format(self.tableName, fieldNames, questionMarks)
-        self.executor.update(query, values) #TODO: create an update method in executor
+        self.executor.update(query, values)
 
     def findAll(self):
         self.find(filters=[])
@@ -33,23 +34,10 @@ class DAOEngine(object):
         query = "SELECT * FROM {0}".format(self.tableName)
 
         if filters:
-
-            whereClause = " and ".join(filter.getConditionString() for filter in filters)
+            whereClause = " and ".join(f.getConditionString() for f in filters)
             query += " WHERE {0};".format(whereClause)
 
-            self.executor.query(query,)#TODO: finish executor, create a RowMapper class that can handle each rowMapping
-
-        """return this.jdbcTemplate.query(query, new RowMapper() {
-            public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
-        try {
-            Object result = mappedClass.newInstance();
-        for (PropertyMapping mapping : GenericDao.this.mappings) {
-            mapping.setValue(result, rs);
-        }
-        return result;
-        }
-        catch (Exception e) {
-        throw new RuntimeException(e);"""
+        self.executor.query(query, RowMapper(self.mappedClass, self.mappings))
 
     def addProperty(self, propertyMapping):
         if not isinstance(propertyMapping, PropertyMappings):
@@ -57,4 +45,16 @@ class DAOEngine(object):
         self.mappings.append(propertyMapping)
 
 
+class RowMapper(object):
 
+    def __init__(self, mappedClass, mappings):
+        self.mappedClass = mappedClass
+        self.mappings = mappings
+
+    def mapRow(self, resultSet):
+        try:
+            result = self.mappedClass()
+            for mAp in self.mappings:
+                mAp.setValue(result, resultSet)
+        except Exception:
+            pass

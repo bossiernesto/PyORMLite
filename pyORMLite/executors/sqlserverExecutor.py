@@ -1,10 +1,21 @@
+from abc import ABCMeta
+
 
 class AbstractExecutor(object):
 
-    def execute(self,query):
+    __metaclass__ = ABCMeta
+
+    def execute(self, query):
         self.interface.run(query)
 
+    def update(self, query, values):
+        pass
 
-class SQLServerExecutor(object):
+    def query(self, query, rowMapper):
+        pass
+
+
+class SQLServerExecutor(AbstractExecutor):
 
     pass
+

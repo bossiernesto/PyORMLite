@@ -13,7 +13,7 @@ setup(name="PyORMLite",
     license="GPL v3",
     packages=['PyORMLite'],
     package_dir={'PyORMLite': 'PyORMLite'},
-    keywords="MetaBuilder Metaprogramming",
+    keywords="ORM Lightweight",
     classifiers=["Development Status :: 3 - Alpha",
                  "Topic :: Utilities",
                  "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)"]

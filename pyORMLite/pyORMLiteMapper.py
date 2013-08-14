@@ -29,7 +29,7 @@ class PropertyMappings(object):
         }
         """
         propertyValue = self.converter.getValueFromResultSet(self.columnName, resultSet)
-        setterMethodName = getattr()
+        setterMethodName = getattr() #TODO: finish this
 
     def getPropertyType(self):
         return self.converter.getPropertyType()
