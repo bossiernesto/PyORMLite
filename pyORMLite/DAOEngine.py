@@ -44,6 +44,10 @@ class DAOEngine(object):
             raise DAOEngineException('{0} is not an instance of {1}'.format(propertyMapping, PropertyMappings))
         self.mappings.append(propertyMapping)
 
+    def remove(self, instance):
+        #TODO: this method should build a query to the mappedClass where the clause is equal to every value used in the
+        pass
+
 
 class RowMapper(object):
 
