@@ -2,6 +2,7 @@ from PyORMLiteUtils import wrapException
 from PyORMLiteExecptions import DAOMapperException
 from PyORMLiteConverters import PropertyConverter
 
+
 class PropertyMappings(object):
 
     def __init__(self, propertyName, columnName, converter):

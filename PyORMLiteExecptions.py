@@ -1,5 +1,11 @@
-class PyORMLiteException(Exception):pass
+class PyORMLiteException(Exception):
+    pass
 
-class DAOEngineException(PyORMLiteException):pass
-class DAOMapperException(PyORMLiteException):pass
+
+class DAOEngineException(PyORMLiteException):
+    pass
+
+
+class DAOMapperException(PyORMLiteException):
+    pass
 

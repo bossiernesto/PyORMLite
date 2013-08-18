@@ -19,3 +19,28 @@ class SQLServerExecutor(AbstractExecutor):
 
     pass
 
+"""
+class WhatIHave:
+    def g(self): pass
+    def h(self): pass
+
+class WhatIWant:
+    def f(self): pass
+
+class WhatIUse:
+    def op(self, whatIWant):
+        whatIWant.f()
+
+# Approach 4: use an inner class:
+class WhatIHave3(WhatIHave):
+    class InnerAdapter(WhatIWant):
+        def __init__(self, outer):
+            self.outer = outer
+        def f(self):
+            self.outer.g()
+            self.outer.h()
+
+    def whatIWant(self):
+        return WhatIHave3.InnerAdapter(self)
+
+"""
