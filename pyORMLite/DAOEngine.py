@@ -1,8 +1,7 @@
 import inspect
 from PyORMLiteExecptions import DAOEngineException
-from pyORMLiteSettings import EXECUTOR
 from pyORMLiteMapper import PropertyMappings
-
+from executors.PyORMLiteConnector import PyORMLiteExecutor
 
 class DAOEngine(object):
 
@@ -12,7 +11,7 @@ class DAOEngine(object):
         self.mappedClass = mappedClass
         self.tableName = tableName
         self.mappings = mappings
-        self.executor = EXECUTOR()
+        self.executor = PyORMLiteExecutor()
 
     def update(self, instance):
         pass
@@ -34,7 +33,7 @@ class DAOEngine(object):
         query = "SELECT * FROM {0}".format(self.tableName)
 
         if filters:
-            whereClause = " and ".join(f.getConditionString() for f in filters)
+            whereClause = " AND ".join(f.getConditionString() for f in filters)
             query += " WHERE {0};".format(whereClause)
 
         self.executor.query(query, RowMapper(self.mappedClass, self.mappings))
