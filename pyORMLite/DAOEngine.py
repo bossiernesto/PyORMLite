@@ -1,28 +1,31 @@
 import inspect
 from PyORMLiteExecptions import DAOEngineException
 from pyORMLiteMapper import PropertyMappings
-from executors.PyORMLiteConnector import PyORMLiteExecutor
+from pyORMLiteSettings import CONNECTOR
+
 
 class DAOEngine(object):
 
-    def __init__(self, mappedClass, tableName, mappings=[]):
+    def __init__(self, mappedClass, tableName, mappings=[], connector=CONNECTOR):
         if not inspect.isclass(mappedClass):
             raise DAOEngineException('{0} is not a valid Class'.format(mappedClass))
         self.mappedClass = mappedClass
         self.tableName = tableName
         self.mappings = mappings
-        self.executor = PyORMLiteExecutor()
+        self.executor = connector()
 
     def update(self, instance):
         pass
 
+    def addMany(self, instanceCollection):
+        pass
+
     def add(self, instance):
         fieldNames = ','.join([mapping.columnName for mapping in self.mappings])
-        questionMarks = ','.join(['?' for mapping in self.mappings])
-        values = [mapping.getvalue(instance) for mapping in self.mappings]
-
-        query = " INSERT INTO {0} ({1}) VALUES ({2});".format(self.tableName, fieldNames, questionMarks)
-        self.executor.update(query, values)
+        
+        values = tuple([mapping.getvalue(instance) for mapping in self.mappings])
+        questionMarks = ','.join(['?' for value in values])
+        self.executor.insert(self.tableName, fieldNames, questionMarks, [values])
 
     def findAll(self):
         self.find(filters=[])
@@ -33,7 +36,7 @@ class DAOEngine(object):
         query = "SELECT * FROM {0}".format(self.tableName)
 
         if filters:
-            whereClause = " AND ".join(f.getConditionString() for f in filters)
+            whereClause = " AND ".join(f.get_condition_string() for f in filters)
             query += " WHERE {0};".format(whereClause)
 
         self.executor.query(query, RowMapper(self.mappedClass, self.mappings))
@@ -44,8 +47,10 @@ class DAOEngine(object):
         self.mappings.append(propertyMapping)
 
     def remove(self, instance):
-        #TODO: this method should build a query to the mappedClass where the clause is equal to every value used in the
-        pass
+        fieldNames = ','.join([mapping.columnName for mapping in self.mappings])
+        questionMarks = ','.join(['?' for mapping in self.mappings])
+        values = tuple([mapping.getvalue(instance) for mapping in self.mappings])
+
 
 
 class RowMapper(object):

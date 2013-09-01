@@ -1,29 +1,17 @@
-from pyORMLiteSettings import CONNECTOR
-
-class PyORMLiteExecutor(object):
-
-    def __int__(self):
-        self.connector = CONNECTOR
-
-    def execute(self, query):
-        self.connector.executeQuery(query)
-
-    def update(self, query, values):
-        pass
-
-    def query(self, query, rowMapper):
-        pass
-
-    def createTable(self, tableName, values):
-        pass
-
-    def dropTable(self, tableName):
-        pass
-
-
 class AbstractDBConnector(object):
 
-    def executeSQL(self, query):
+    def insert(self, tableName, fieldNames, questionMarks, values):
+        query = " INSERT INTO {0} ({1}) VALUES ({2});".format(tableName, fieldNames, questionMarks)
+        self.executeSQL(query, values)
+
+    def query(self, query, rowMapper):
+        resultSet = self.executeSQL(query)
+        for row in resultSet:
+            rowMapper.mapRow(row)
+
+    def delete(self, ):
+
+    def executeSQL(self, query, values=None):
         raise NotImplementedError
 
     def createTable(self, tableName, values):
@@ -50,8 +38,11 @@ class DBAdapter(AbstractDBConnector):
             self.outer.executeSQL(query)
             self.outer.endTran()
 
-        def createTable(self):
-            self.outer.createTable()
+        def createTable(self, name, values):
+            self.outer.createTable(name, values)
+
+        def dropTable(self, name):
+            self.outer.dropTable(name)
 
     def DBBridge(self):
         return DBAdapter.InnerAdapter(self)

@@ -1,2 +1,4 @@
 class QueryFilter(object):
-    pass #TODO: finish this class
+
+    def get_condition_string(self):
+        pass
