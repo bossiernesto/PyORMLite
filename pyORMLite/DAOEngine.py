@@ -1,3 +1,13 @@
+"""
+.. module:: Dao Engine
+   :platform: Linux
+   :synopsis: Main object that holds converters and mappers.
+   :copyright: (c) 2013 by Ernesto Bossi.
+   :license: GPL v3.
+
+.. moduleauthor:: Ernesto Bossi <bossi.ernestog@gmail.com>
+
+"""
 import inspect
 from PyORMLiteExecptions import DAOEngineException
 from pyORMLiteMapper import PropertyMappings
