@@ -3,9 +3,9 @@ from distutils.core import setup
 with open('README.txt') as readme:
     long_description = readme.read()
 
-setup(name="ristretto-orm",
+setup(name="ristrettoORM",
     version="0.0.1",
-    description="Lightweight ORM for persisting objects",
+    description="Lightweight ORM for persisting objects for ristretto framework",
     long_description=long_description,
     author="Ernesto Bossi",
     author_email="bossi.ernestog@gmail.com",

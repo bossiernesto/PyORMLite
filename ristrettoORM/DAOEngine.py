@@ -9,9 +9,9 @@
 
 """
 import inspect
-from PyORMLiteExecptions import DAOEngineException
+from ristrettoORMExceptions import DAOEngineException
 from pyORMLiteMapper import PropertyMappings
-from pyORMLiteSettings import CONNECTOR
+from ristrettoORMSettings import CONNECTOR
 
 
 class DAOEngine(object):

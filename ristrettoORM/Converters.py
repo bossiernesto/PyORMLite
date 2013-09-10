@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
-from PyORMLiteUtils import wrapDAOException, wrapPyORMException
-from pyORMLiteSettings import PROPERTY_CONVERTERS
+from ristrettoORM.ristrettoORMUtils import wrapDAOException, wrapPyORMException
+from ristrettoORMSettings import PROPERTY_CONVERTERS
 from datetime import date
 
 CONVERTERS = PROPERTY_CONVERTERS
@@ -13,7 +13,7 @@ class PropertyConverter(object):
     def getValue(self, propertyName, obj):
         try:
             return getattr(obj, propertyName)()
-        except Exception, e:
+        except Exception as e:
             wrapPyORMException("Failed getting value of {0} because of: {1}".format(propertyName, e.message))
 
     @abstractmethod

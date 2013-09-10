@@ -1,15 +1,15 @@
 import sys
-from PyORMLiteExecptions import PyORMLiteException,DAOEngineException
+from ristrettoORMExceptions import RistrettoORMException,DAOEngineException
 
 
 def wrapPyORMException(message):
     """
-    Function that wraps an existing Exception in stackTrace with a PyORMLiteException
+    Function that wraps an existing Exception in stackTrace with a RistrettoORMException
 
     :param message: Description of the message that the developer wants to show when the wrap Exception is raised
     :type message: str
     """
-    wrapException(PyORMLiteException, message)
+    wrapException(RistrettoORMException, message)
 
 
 def wrapDAOException(message):
@@ -31,4 +31,4 @@ def wrapException(exceptionClass, message):
     :type message: str
     """
     trace = sys.exc_info()[2]
-    raise exceptionClass(message), None, trace
+    raise(exceptionClass, message, None, trace)

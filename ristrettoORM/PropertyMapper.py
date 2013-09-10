@@ -1,7 +1,6 @@
-from PyORMLiteUtils import wrapException
-from PyORMLiteExecptions import DAOMapperException
-from PyORMLiteConverters import PropertyConverter
-
+from ristrettoORM.ristrettoORMUtils import wrapException
+from ristrettoORMExceptions import DAOMapperException
+from ristrettoORM.converters import PropertyConverter
 
 class PropertyMappings(object):
 
@@ -13,7 +12,7 @@ class PropertyMappings(object):
     def getValueFromResultSet(self, resultSet):
         try:
             return self.converter.getValueFromResultSet(self.columnName, resultSet)
-        except Exception, e:
+        except Exception as e:
             wrapException(DAOMapperException, "Failed mapping of values of Result Set because of: {0}".format(e.message))
 
     def getValue(self, object):
