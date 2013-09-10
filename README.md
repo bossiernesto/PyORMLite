@@ -1,4 +1,4 @@
-PyORMLite
+ORM for ristretto
 =========
 
-PyORMLite
+ristretto-ORM
