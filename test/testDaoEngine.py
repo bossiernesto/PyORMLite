@@ -1,7 +1,7 @@
-from pyORMLite.DAOEngine import DAOEngine, DAOEngineException
+from ristrettoORM.DAOEngine import DAOEngine
 from unittest import TestCase
 
 class TestDAOEngine(TestCase):
 
     def setUp(self):
-        self.engine = DAOEngine()
+       self.engine = DAOEngine()

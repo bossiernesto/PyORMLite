@@ -1,4 +1,4 @@
-from PyORMLiteConnector import AbstractDBConnector
+from .ristrettoORMConnector import AbstractDBConnector
 
 
 class SQLLiteConnector(AbstractDBConnector):

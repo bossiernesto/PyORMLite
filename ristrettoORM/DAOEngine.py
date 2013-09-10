@@ -10,7 +10,7 @@
 """
 import inspect
 from ristrettoORMExceptions import DAOEngineException
-from pyORMLiteMapper import PropertyMappings
+from ristrettoORM.propertyMapper import PropertyMappings
 from ristrettoORMSettings import CONNECTOR
 
 

@@ -9,8 +9,6 @@ class AbstractDBConnector(object):
         for row in resultSet:
             rowMapper.mapRow(row)
 
-    def delete(self, ):
-
     def executeSQL(self, query, values=None):
         raise NotImplementedError
 

@@ -1,10 +1,6 @@
+from datetime import date
 from abc import ABCMeta, abstractmethod
 from ristrettoORM.ristrettoORMUtils import wrapDAOException, wrapPyORMException
-from ristrettoORMSettings import PROPERTY_CONVERTERS
-from datetime import date
-
-CONVERTERS = PROPERTY_CONVERTERS
-
 
 class PropertyConverter(object):
 
@@ -49,3 +45,4 @@ class DateConverter(PropertyConverter):
     def getValueFromResultSet(self, columnName, resultSet):
         return resultSet.getDate(columnName)
 
+CONVERTERS = {str:StringConverter(), date:DateConverter()}
