@@ -3,7 +3,7 @@ from distutils.core import setup
 with open('README.txt') as readme:
     long_description = readme.read()
 
-setup(name="PyORMLite",
+setup(name="ristretto-orm",
     version="0.0.1",
     description="Lightweight ORM for persisting objects",
     long_description=long_description,
