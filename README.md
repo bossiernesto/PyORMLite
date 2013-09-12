@@ -1,4 +1,4 @@
 ORM for ristretto
 =========
 
-ristretto-ORM
+This is a small and simple ORM for the ristretto framework
