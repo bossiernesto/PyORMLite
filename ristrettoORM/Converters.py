@@ -1,6 +1,6 @@
 from datetime import date
 from abc import ABCMeta, abstractmethod
-from ristrettoORM.ristrettoORMUtils import wrapDAOException, wrapPyORMException
+from ristrettoORM.ristrettoORMUtils import wrap_dao_exception, wrap_pyorm_exception
 
 class PropertyConverter(object):
 
@@ -10,7 +10,7 @@ class PropertyConverter(object):
         try:
             return getattr(obj, propertyName)()
         except Exception as e:
-            wrapPyORMException("Failed getting value of {0} because of: {1}".format(propertyName, e.message))
+            wrap_pyorm_exception("Failed getting value of {0} because of: {1}".format(propertyName, e.message))
 
     @abstractmethod
     def getConverterFromType(self):
@@ -25,7 +25,7 @@ class PropertyConverter(object):
         try:
             return CONVERTERS[type]
         except Exception:
-            wrapDAOException("Invalid converter Type queried")
+            wrap_dao_exception("Invalid converter Type queried")
 
 
 class StringConverter(PropertyConverter):
