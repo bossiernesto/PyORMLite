@@ -1,3 +1,1 @@
-from ristrettoORM.executors.sqlLiteConnector import SQLLiteConnector
-
-CONNECTOR = SQLLiteConnector
+#TODO: change this to be all configurable from the engine class
