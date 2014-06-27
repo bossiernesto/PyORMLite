@@ -5,6 +5,7 @@ from contextlib import contextmanager
 class ObjectPool(object):
     """A simple object pool with thread safe fro python 3"""
     POOL_DEFAULT_SIZE = 1
+    pool_size = POOL_DEFAULT_SIZE
 
     def __init__(self, objectFn, *args, **kwargs):
         super(ObjectPool, self).__init__()
@@ -20,15 +21,15 @@ class ObjectPool(object):
 
     def _myInit(self, *args, **kwargs):
         self.args = args or []
-        self.maxSize = int(kwargs.get("maxSize", self.POOL_DEFAULT_SIZE))
+        self.maxSize = int(kwargs.get("maxSize", self.pool_size))
         self.kwargs = kwargs.get("kwargs") or {}
         self.queue = queue.Queue()
 
     def _getObj(self):
         if self.objectFn:
-            return self.objectFn(self.args, self.kwargs) if self.args else self.objectFn()
+            return self.objectFn(self.args, **self.kwargs) if self.args else self.objectFn(**self.kwargs)
         else:
-            return self.objectCls(self.args, self.kwargs) if self.args else self.objectCls()
+            return self.objectCls(self.args, **self.kwargs) if self.args else self.objectCls(**self.kwargs)
 
     def borrowObj(self):
         if self.queue.qsize() < self.maxSize or self.queue.empty():
